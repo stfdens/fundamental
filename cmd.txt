@@ -1,0 +1,29 @@
+CREATE DATABASE (nama);
+SELECT * FROM DB;
+CREATE TABLE karyawan (
+   id VARCHAR(8) PRIMARY KEY,
+   nama_lengkap VARCHAR(30) NOT NULL,
+   email VARCHAR(50) UNIQUE NOT NULL,
+   alamat TEXT
+);
+
+INSERT INTO karyawan VALUES ('DCD002', 'Gilang Ramadhan', 'gilang@dicoding.com', 'Batik Kumeli No. 50 Bandung'); //masukin data
+SELECT id, nama_lengkap, email, alamat FROM karyawan; //select data
+SELECT * FROM karyawan; //menampilkan semuanya
+SELECT * FROM karyawan WHERE nama_lengkap = 'Gilang Ramadhan'; //buat nyari data
+
+UPDATE karyawan //update;
+SET nama_lengkap = 'Gilang Ramadan'
+WHERE id = 'DCD002';
+
+//delete
+DELETE FROM table_name WHERE condition;
+
+// contoh query
+    text: 'INSERT INTO karyawan VALUES($1, $2, $3, $4) RETURNING *',
+
+// membuat table
+migrate create ‘<migration name>’: Digunakan untuk membuat berkas migration baru.
+migrate up:  Digunakan untuk menjalankan seluruh up migration yang belum dijalankan.
+migrate down: Digunakan untuk menjalankan satu down migration dari keadaan saat ini.
+migrate redo: Digunakan untuk menjalankan ulang migration sebelumnya (menjalankan down migration kemudian up migration).
