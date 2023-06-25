@@ -1,0 +1,18 @@
+{
+  "name": "notes-app-backend-v2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./src/services/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^21.3.2",
+    "joi": "^17.9.2",
+    "nanoid": "^3.3.6",
+    "nodemon": "^2.0.22"
+  }
+}
