@@ -12,9 +12,9 @@ class NotesService {
 
     const newNote = {
       title,
+      tags,
       body,
       id,
-      tags,
       createdAt,
       updatedAt,
     };
@@ -26,6 +26,8 @@ class NotesService {
     if (!isSuccess) {
       throw new Error('Catatan gagal ditambahkan');
     }
+
+    return id;
   }
 
   getNote() {
@@ -33,7 +35,7 @@ class NotesService {
   }
 
   getNoteById(id) {
-    const note = this._notes.filter((note) => note.id === id);
+    const note = this._notes.filter((note) => note.id === id)[0];
 
     if (!note) {
       throw new Error('Catatan tidak ditemukan');
