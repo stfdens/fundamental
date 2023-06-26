@@ -13,8 +13,6 @@ class NotesHandler {
     try {
       const { title = 'untitled', body, tags } = request.payload;
 
-      this._service.addNote({ title, body, tags });
-
       const noteId = this._service.addNote({ title, body, tags });
 
       const response = h.response({
@@ -61,7 +59,7 @@ class NotesHandler {
         status: 'fail',
         message: error.message,
       });
-      response.code(400);
+      response.code(404);
       return response;
     }
   }
