@@ -11,9 +11,18 @@ class AlbumsHandler {
 
   postAlbumsByHandler(request, h) {
     try {
-        const {name, year} = request.payload;
+      const { name, year } = request.payload;
+
+      const album = this._service.AddAlbums();
+
+      const response = h.response({
+        status: 'success',
+        message: 'Albums berhasil ditambahkan',
+      });
+      response.code(201);
+      return response;
     } catch (error) {
-        
+
     }
   }
 }
