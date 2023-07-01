@@ -2,6 +2,10 @@
 
 exports.up = (pgm) => {
   pgm.createTable('albums', {
+    id: {
+      type: 'varchar',
+      primaryKey: true,
+    },
     name: {
       type: 'varchar',
       notNull: true,
