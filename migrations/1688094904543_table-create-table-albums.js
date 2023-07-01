@@ -16,6 +16,10 @@ exports.up = (pgm) => {
     },
   });
   pgm.createTable('songs', {
+    id: {
+      type: 'varchar',
+      primaryKey: true,
+    },
     title: {
       type: 'varchar',
       notNull: true,
@@ -36,7 +40,7 @@ exports.up = (pgm) => {
       type: 'integer',
       notNull: true,
     },
-    albumid: {
+    albumId: {
       type: 'varchar',
       notNull: true,
     },
