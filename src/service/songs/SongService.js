@@ -1,9 +1,9 @@
 const { nanoid } = require('nanoid');
 const { Pool } = require('pg');
-const ClientError = require('../../ErrorHandling/ClientError');
 const mapDbToModelSongs = require('../../utils/songs');
 const NotFoundError = require('../../ErrorHandling/NotFoundError');
 const mapDbToModelSongsId = require('../../utils/songsId');
+const InvariantError = require('../../ErrorHandling/InvariantError');
 
 class SongsService {
   constructor() {
@@ -21,7 +21,7 @@ class SongsService {
     const result = await this._pool.query(query);
 
     if (!result.rows[0].id) {
-      throw new ClientError('Songs gagal ditambahkan');
+      throw new InvariantError('Songs gagal ditambahkan');
     }
 
     return result.rows[0].id;
