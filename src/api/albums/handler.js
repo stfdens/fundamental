@@ -1,8 +1,9 @@
 const ClientError = require('../../ErrorHandling/ClientError');
 
 class AlbumsHandler {
-  constructor(service) {
+  constructor(service, validator) {
     this._service = service;
+    this._validator = validator;
 
     this.postAlbumsByHandler = this.postAlbumsByHandler.bind(this);
     this.getAlbumsByHandler = this.getAlbumsByHandler.bind(this);
@@ -13,6 +14,7 @@ class AlbumsHandler {
 
   async postAlbumsByHandler(request, h) {
     try {
+      this._validator.validateAlbums(request.payload);
       const { name, year } = request.payload;
 
       const album_id = await this._service.AddAlbums({ name, year });
@@ -20,9 +22,7 @@ class AlbumsHandler {
       const response = h.response({
         status: 'success',
         data: {
-          albumid: {
-            album_id,
-          },
+          albumId: album_id,
         },
       });
       response.code(201);
@@ -92,6 +92,7 @@ class AlbumsHandler {
 
   async updateAlbumsByHandler(request, h) {
     try {
+      this._validator.validateAlbums(request.payload);
       const { id } = request.params;
 
       await this._service.editAlbumsById(id, request.payload);
