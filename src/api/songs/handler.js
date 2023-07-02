@@ -9,6 +9,7 @@ class SongsHandler {
     this.getSongsByHandler = this.getSongsByHandler.bind(this);
     this.getSongByIdHandler = this.getSongByIdHandler.bind(this);
     this.updateSongsByIdHandler = this.updateSongsByIdHandler.bind(this);
+    this.deleteSongsByIdHandler = this.deleteSongsByIdHandler.bind(this);
   }
 
   async postSongsByHandler(request, h) {
@@ -116,6 +117,38 @@ class SongsHandler {
       }
 
       // server  error
+      const response = h.response({
+        status: 'fail',
+        message: 'Maaf terjadi kesalahan pada server kami',
+      });
+      response.code(500);
+      return response;
+    }
+  }
+
+  async deleteSongsByIdHandler(request, h) {
+    try {
+      const { id } = request.params;
+
+      await this._service.deleteSongById(id);
+
+      const response = h.response({
+        status: 'success',
+        message: 'Songs berhasil dihapus',
+      });
+      response.code(200);
+      return response;
+    } catch (error) {
+      if (error instanceof ClientError) {
+        const response = h.response({
+          status: 'fail',
+          message: error.message,
+        });
+        response.code(error.statusCode);
+        return response;
+      }
+
+      // server error
       const response = h.response({
         status: 'fail',
         message: 'Maaf terjadi kesalahan pada server kami',

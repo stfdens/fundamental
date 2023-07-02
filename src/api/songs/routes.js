@@ -19,11 +19,11 @@ const rotes = (handler) => [
     path: '/songs/{id}',
     handler: handler.updateSongsByIdHandler,
   },
-//   {
-//     method: 'DELETE',
-//     path: '/songs/{id}',
-//     handler: handler.deleteSongsByIdHandler,
-//   },
+  {
+    method: 'DELETE',
+    path: '/songs/{id}',
+    handler: handler.deleteSongsByIdHandler,
+  },
 ];
 
 module.exports = rotes;
