@@ -42,7 +42,7 @@ class SongsService {
     const result = await this._pool.query(query);
 
     if (!result.rows.length) {
-      return new NotFoundError('Songs tidak ditemukan');
+      throw new NotFoundError('Songs tidak ditemukan');
     }
 
     return result.rows.map(mapDbToModelSongsId)[0];
@@ -52,7 +52,7 @@ class SongsService {
     title, year, genre, performer, duration, albumId,
   }) {
     const query = {
-      text: 'UPDATE songs SET title = $1, year = $2, genre = $3, performer = $4, duration = $5, albumId = $6 WHERE id = $7',
+      text: 'UPDATE songs SET title = $1, year = $2, genre = $3, performer = $4, duration = $5, "albumId" = $6 WHERE id = $7 RETURNING id',
       values: [title, year, genre, performer, duration, albumId, id],
     };
 

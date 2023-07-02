@@ -42,7 +42,6 @@ exports.up = (pgm) => {
     },
     albumId: {
       type: 'varchar',
-      notNull: true,
     },
   });
 };
