@@ -14,9 +14,6 @@ exports.up = (pgm) => {
       type: 'integer',
       notNull: true,
     },
-    songs: {
-      type: 'varchar',
-    },
   });
   pgm.createTable('songs', {
     id: {
