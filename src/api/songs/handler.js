@@ -49,8 +49,48 @@ class SongsHandler {
     }
   }
 
-  async getSongsByHandler() {
+  async getSongsByHandler(request) {
+    const { title, performer } = request.query;
+
+    if (title && performer) {
+      // Jika kedua parameter title dan performer ada
+      const songs = await this._service.getSongsByTitleAndPerformer(title, performer);
+
+      return {
+        status: 'success',
+        data: {
+          songs,
+        },
+      };
+    }
+
+    if (title) {
+      // Jika hanya parameter title yang ada
+      const songs = await this._service.getSongsByTitle(title);
+
+      return {
+        status: 'success',
+        data: {
+          songs,
+        },
+      };
+    }
+
+    if (performer) {
+      // Jika hanya parameter performer yang ada
+      const songs = await this._service.getSongsByPerformer(performer);
+
+      return {
+        status: 'success',
+        data: {
+          songs,
+        },
+      };
+    }
+
+    // Jika tidak ada parameter yang diberikan
     const songs = await this._service.getSongs();
+
     return {
       status: 'success',
       data: {
