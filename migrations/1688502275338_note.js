@@ -44,9 +44,16 @@ exports.up = (pgm) => {
       notNull: true,
     },
   });
+  pgm.createTable('authentications', {
+    token: {
+      type: 'TEXT',
+      notNull: true,
+    },
+  });
 };
 
 exports.down = (pgm) => {
   pgm.dropTable('notes');
   pgm.dropTable('users');
+  pgm.dropTable('authentications');
 };
