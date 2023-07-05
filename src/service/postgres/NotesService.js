@@ -19,7 +19,7 @@ class NotesService {
       values: [id, title, body, tags, createdAt, updatedAt],
     };
 
-    const result = this._pool.query(query);
+    const result = await this._pool.query(query);
 
     if (!result.rows[0].id) {
       throw new InvariantError('Catatan gagal ditambahkan');
@@ -39,7 +39,7 @@ class NotesService {
       values: [id],
     };
 
-    const result = await this._pool(query);
+    const result = await this._pool.query(query);
 
     if (!result.rows.length) {
       throw new NotFoundError('Catatan tidak ditemukan');
@@ -55,7 +55,7 @@ class NotesService {
       values: [title, body, tags, updatedAt, id],
     };
 
-    const result = await this._pool(query);
+    const result = await this._pool.query(query);
 
     if (!result.rows.length) {
       throw new NotFoundError('Catatan tidak ditemukan');
@@ -68,7 +68,7 @@ class NotesService {
       values: [id],
     };
 
-    const result = await this._pool(query);
+    const result = await this._pool.query(query);
 
     if (!result.rows.length) {
       return new NotFoundError('Catatan tidak ditemukan');

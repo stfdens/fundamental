@@ -17,8 +17,6 @@ class NotesHandler {
       this._validator.validateNotePayload(request.payload);
       const { title = 'unititled', body, tags } = request.payload;
 
-      this._service.addNote({ title, body, tags });
-
       const noteId = await this._service.addNote({ title, body, tags });
 
       const response = h.response({
@@ -51,8 +49,8 @@ class NotesHandler {
     }
   }
 
-  getNotesHandler() {
-    const notes = this._service.getNote();
+  async getNotesHandler() {
+    const notes = await this._service.getNotes();
     return {
       status: 'success',
       data: {
