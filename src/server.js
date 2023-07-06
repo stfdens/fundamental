@@ -10,7 +10,7 @@ const NotesValidator = require('./validator/notes');
 const notes = require('./api/notes');
 
 // users
-const UserService = require('./service/postgres/userService');
+const UsersService = require('./service/postgres/userService');
 const UsersValidator = require('./validator/users');
 const users = require('./api/users');
 
@@ -22,7 +22,7 @@ const AuthenticationsValidator = require('./validator/authentications');
 
 const init = async () => {
   const notesService = new NotesService();
-  const userService = new UserService();
+  const usersService = new UsersService();
   const authenticationsService = new AuthenticationsService();
 
   const server = Hapi.server({
@@ -41,7 +41,7 @@ const init = async () => {
     {
       plugin: users,
       options: {
-        service: userService,
+        service: usersService,
         validator: UsersValidator,
       },
     },
@@ -49,7 +49,7 @@ const init = async () => {
       plugin: authentications,
       options: {
         authenticationsService,
-        userService,
+        usersService,
         tokenManager: TokenManager,
         validator: AuthenticationsValidator,
       },
