@@ -3,6 +3,7 @@ require('dotenv').config();
 
 // hapi framwork
 const Hapi = require('@hapi/hapi');
+const Jwt = require('@hapi/jwt');
 
 // notes
 const NotesService = require('./service/postgres/NotesService');
@@ -28,6 +29,30 @@ const init = async () => {
   const server = Hapi.server({
     host: process.env.HOST,
     port: process.env.PORT,
+  });
+
+  // registrasi plugin eksternal
+  await server.register([
+    {
+      plugin: Jwt,
+    },
+  ]);
+
+  // server jwt strategy
+  server.auth.strategy('notesapp_jwt_auth', 'jwt', {
+    keys: process.env.ACCESS_TOKEN_KEY,
+    verify: {
+      aud: false,
+      iss: false,
+      sub: false,
+      maxAgeSec: process.env.ACCESS_TOKEN_AGE,
+    },
+    validate: (artifacts) => ({
+      isValid: true,
+      credentials: {
+        id: artifacts.decoded.payload.id,
+      },
+    }),
   });
 
   await server.register([

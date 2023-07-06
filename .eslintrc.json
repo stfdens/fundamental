@@ -12,6 +12,7 @@
         "no-console": "off",
         "max-len": "off",
         "linebreak-style": "off",
-        "no-underscore-dangle": "off"
+        "no-underscore-dangle": "off",
+        "consistent-return": "off"
     }
 }
